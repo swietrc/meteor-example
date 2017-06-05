@@ -1,0 +1,138 @@
+<template name="override-atPwdFormBtn">
+    <button type="submit" class="at-btn ui button primary flow submit {{submitDisabled}}" id="at-btn">{{buttonText}}</button>
+</template>
+
+<template name="override-atForm">
+  {{#unless hide}}
+    <div class="header">
+        {{#if showTitle}}
+            {{> atTitle}}
+        {{/if}}
+    </div>
+    <div class="at-form content">
+      {{#if showOauthServices}}
+        {{> atOauth}}
+      {{/if}}
+      {{#if showServicesSeparator}}
+        {{> atSep}}
+      {{/if}}
+      {{#if showError}}
+        {{> atError}}
+      {{/if}}
+      {{#if showResult}}
+        {{> atResult}}
+      {{/if}}
+      {{#if showMessage}}
+        {{> atMessage}}
+      {{/if}}
+      {{#if showPwdForm}}
+        {{> atPwdForm}}
+      {{/if}}
+      
+    </div>
+    {{#if any showTermsLink showSignInLink showSignUpLink showResendVerificationEmailLink}}
+      <div class="actions">
+        {{#if showTermsLink}}
+          {{> atTermsLink}}
+        {{/if}}
+        {{#if showSignInLink}}
+          {{> atSigninLink}}
+        {{/if}}
+        {{#if showSignUpLink}}
+          {{> atSignupLink}}
+        {{/if}}
+        {{#if showResendVerificationEmailLink}}
+          {{> atResendVerificationEmailLink}}
+        {{/if}}
+      </div>
+    {{/if}}
+  {{/unless}}
+</template>
+
+<template name="override-atPwdForm">
+  <div class="at-pwd-form ui container">
+    <form role="form" id="at-pwd-form" class="{{disabled}} ui form" novalidate action="#" method="POST">
+        {{#each fields}}
+            {{> atInput}}
+        {{/each}}
+        {{#if showReCaptcha}}
+            {{> atReCaptcha}}
+        {{/if}}
+        {{#if showForgotPasswordLink}}
+            {{> atPwdLink}}
+        {{/if}}
+        {{> atPwdFormBtn}}
+    </form>
+  </div>
+</template>
+
+<template name="override-atInput">
+  {{> Template.dynamic template=templateName}}
+</template>
+
+<template name="override-atTextInput">
+  <div class="at-input {{#if required}} required {{/if}} {{#if isValidating}} validating {{/if}} {{#if hasError}} error {{/if}} field">
+    {{#if showLabels}}
+      <label>
+        {{displayName}}
+      </label>
+    {{/if}}
+    <div class="ui fluid input icon {{#if isValidating}} loading {{/if}}">
+      <input type="{{type}}" id="at-field-{{_id}}" name="at-field-{{_id}}" placeholder="{{placeholder}}" {{disabled}} autocapitalize="none" autocorrect="off">
+      {{#if hasIcon}}
+        <i class="{{iconClass}} icon"></i>
+      {{/if}}
+    </div>
+    {{#if hasError}}
+      <div class="ui red pointing label">{{errorText}}</div>
+    {{/if}}
+  </div>
+</template>
+
+<template name="override-atCheckboxInput">
+  <div class="at-input inline field">
+    <div class="ui toggle checkbox">
+      <input type="{{type}}" id="at-field-{{_id}}" name="at-field-{{_id}}" {{disabled}} tabindex="0" class="hidden">
+      <label for="at-field-{{_id}}">{{displayName}}</label>
+    </div>
+  </div>
+</template>
+
+<template name="override-atSelectInput">
+  <div class="at-input {{#if required}} required {{/if}} {{#if hasError}} error {{/if}} field">
+    <label>{{displayName}}</label>
+    <div class="ui fluid selection dropdown">
+      <input type="hidden" id="at-field-{{_id}}" name="at-field-{{_id}}">
+      <div class="default text">{{displayName}}</div>
+      <i class="dropdown icon"></i>
+      <div class="menu">
+        {{#each values}}
+          <div class="item" data-value="{{value}}">{{text}}</div>
+        {{/each}}
+      </div>
+    </div>
+    {{#if hasError}}
+      <div class="at-wrap">
+        <div class="ui large red pointing label">{{errorText}}</div>
+      </div>
+    {{/if}}
+  </div>
+</template>
+
+<template name="override-atRadioInput">
+  <div class="grouped fields">
+    <label>{{displayName}}</label>
+    {{#each values}}
+      <div class="at-input field">
+        <div class="ui radio checkbox">
+          <input id="at-field-{{id}}-choice-{{value}}" type="radio" name="at-field-{{id}}" value= {{value}} tabindex="0" class="hidden">
+          <label for="at-field-{{id}}-choice-{{value}}">{{text}}</label>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</template>
+
+<template name="override-atHiddenInput">
+  <input type="hidden" id="at-field-{{_id}}" name="at-field-{{_id}}">
+</template>

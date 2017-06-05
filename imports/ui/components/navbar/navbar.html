@@ -1,0 +1,27 @@
+<template name='navbar'>
+    <div class="ui menu">
+
+    <a class="header item">
+      Mon application de tueur
+    </a>
+    <a class="item">
+        Button 1
+    </a>
+    <a class="item">
+        Button 2
+    </a>
+    <a class="item">
+        Button 3
+    </a>
+    <div class="right menu">
+        {{#if currentUser}}
+        <a class="item logout">Sign out</a>
+        {{else}}
+        <a class="item open-login">Sign in</a>
+        {{/if}}
+    </div>
+        
+    </div>
+      {{> loginModal}}
+
+</template>
